@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import axios from 'axios';
+import PersonDetail from '../PersonDetail';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,32 +16,30 @@ const useStyles = makeStyles((theme) => ({
 
 function Section() {
   const classes = useStyles();
+  const [persons, setPersons] = useState([]);
+
+  useEffect(() => {
+    axios.get(`https://jsonplaceholder.typicode.com/users`)
+      .then(res => {
+        const personas = res.data;
+        setPersons(personas);
+      })
+    })
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>xs=12</Paper>
-        </Grid>
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>xs=6</Paper>
-        </Grid>
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>xs=6</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid>
-      </Grid>
+      <ul className="App">
+        {persons.map((person, index) => {
+          <PersonDetail 
+            key={index}
+            name={person.name}
+            username={person.userName}
+            email={person.email}
+            address={person.address}
+            phone={person.phone}
+          />
+        })}
+      </ul>
     </div>
   );
 }

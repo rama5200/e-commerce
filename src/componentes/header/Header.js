@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   menuButton: {
@@ -38,10 +39,10 @@ function Header() {
           className={classes.menuButton}
         >
           <MenuIcon />
+          <Link to="/section" className="App">Section</Link>
         </IconButton>
-        <Typography variant="h6" className={classes.title}>
-          E-commerce
-        </Typography>
+        <input type="search">
+        </input>
         <Button color="inherit" onClick={handleOpen}>
           Signup
         </Button>
